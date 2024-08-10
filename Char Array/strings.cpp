@@ -18,10 +18,26 @@ int main()
     string b = "hello";
     if (a.compare(b) == 0)
     {
-        cout << "a and b are exactly same string";
+        cout << "a and b are exactly same string" << endl;
     }
     else
     {
         cout << "a and b are not same " << endl;
     }
+    string sentence = "hello my man how are you ";
+    string target = "Aman";
+    /*if (sentence.find(target) == std::string::npos)
+    {
+        cout << "Target found" << endl;
+    }
+    else
+    {
+        cout << "Target not found" << endl;
+    }*/
+
+    // replaced function
+    sentence.replace(0, 5, target);
+    cout << sentence;
+
+    return 0;
 }

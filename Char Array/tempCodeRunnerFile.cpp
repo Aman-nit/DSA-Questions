@@ -1,0 +1,1 @@
+cout << "Enter number of inputs you wanna give:-";

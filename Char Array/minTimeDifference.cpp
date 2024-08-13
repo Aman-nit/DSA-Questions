@@ -5,7 +5,7 @@ using namespace std;
 
 int minTimeDifference(vector<string> time)
 {
-    // cooonverting time string to integer
+    // converting time string to integer
     vector<int> minutes;
     for (int i = 0; i < time.size(); i++)
     {

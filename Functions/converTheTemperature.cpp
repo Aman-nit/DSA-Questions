@@ -1,15 +1,19 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 void convertTheTemperature(float celsius)
 {
     float kelvin = celsius + 273.15;
     float farenheit = 1.80 * celsius + 30.00;
-    float ans[2];
-    ans[0] = kelvin;
-    ans[1] = farenheit;
+    vector<float> ans;
+    ans.push_back(kelvin);
+    ans.push_back(farenheit);
 
-    cout << "[ " << ans[0] << " , " << ans[1] << " ]" << endl;
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout << ans[i] << " " << endl;
+    }
 }
 
 int main()

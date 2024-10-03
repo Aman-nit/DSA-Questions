@@ -48,6 +48,8 @@ void takeInput(node *&root)
 }
 bool findNodeInBst(node *root, int target)
 {
+    bool leftAns;
+    bool rightAns;
     if (root == NULL)
     {
         return false;
@@ -58,12 +60,13 @@ bool findNodeInBst(node *root, int target)
     }
     if (root->data < target)
     {
-        return findNodeInBst(root->right, target);
+        rightAns = findNodeInBst(root->right, target);
     }
     else
     {
-        return findNodeInBst(root->left, target);
+        leftAns = findNodeInBst(root->left, target);
     }
+    return right || leftAns;
 }
 
 int main()

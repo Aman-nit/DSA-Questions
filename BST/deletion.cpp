@@ -1,11 +1,7 @@
-// in the delation of any node we will b behaving 4 cases
-// 1. the node have left and right node NULL
-// 2. the node have left node NULL only
-// 3. the node have right node NULL only
-// 4. the node will have both right and left node !NULL
-
 #include <iostream>
+#include <queue>
 using namespace std;
+
 class node
 {
 public:
@@ -19,23 +15,26 @@ public:
         this->right = NULL;
     }
 };
+
+// Build BST function
 node *builtBst(node *root, int data)
 {
     if (root == NULL)
     {
         root = new node(data);
         return root;
-        if (root->data > data)
-        {
-            root->left = builtBst(root->left, data);
-        }
-        else
-        {
-            root->right = builtBst(root->right, data);
-        }
-        return root;
     }
+    if (root->data > data)
+    {
+        root->left = builtBst(root->left, data);
+    }
+    else
+    {
+        root->right = builtBst(root->right, data);
+    }
+    return root;
 }
+
 void takeInput(node *&root)
 {
     int data;
@@ -48,57 +47,105 @@ void takeInput(node *&root)
         cin >> data;
     }
 }
-node *findNodeInBst(node *root, int target)
+
+// Find maximum value in the left subtree (used for deletion)
+int maxValue(node *root)
+{
+    node *temp = root;
+    while (temp->right != NULL)
+    {
+        temp = temp->right;
+    }
+    return temp->data;
+}
+
+// Level order traversal
+void levelOrderTraversal(node *root)
 {
     if (root == NULL)
+        return;
+
+    queue<node *> q;
+    q.push(root);
+
+    while (!q.empty())
     {
-        return NULL;
+        node *current = q.front();
+        q.pop();
+        cout << current->data << " ";
+
+        if (current->left != nullptr)
+        {
+            q.push(current->left);
+        }
+        if (current->right != nullptr)
+        {
+            q.push(current->right);
+        }
     }
-    if (root->data == target)
-    {
-        return root;
-    }
-    if (target > root->data)
-    {
-        return findNodeInBst(root->right, target);
-    }
-    else
-    {
-        return findNodeInBst(root->left, target);
-    }
+    cout << endl;
 }
+
+// Delete node in BST function
 node *deleteNodeInBst(node *root, int target)
 {
-    // base case
     if (root == NULL)
     {
-        return root;
-    }
-    // step 1
-    node *temp = findNodeInBst(root, target);
-    // now we have to delte that node
-    // case 1(leaf node)
-    if (temp->left == NULL && temp->right == NULL)
-    {
-        delete temp;
         return NULL;
     }
-    // case 2(temp->left is NULL only)
-    if (temp->left == NULL && temp->right != NULL)
+    if (target < root->data)
     {
-        node *child = temp->right;
-        delete temp;
-        return child;
+        root->left = deleteNodeInBst(root->left, target);
     }
-    // case 3(temp->right is NULL only)
-    if (temp->left != NULL && temp->right == NULL)
+    else if (target > root->data)
     {
-        node *child = temp->left;
-        delete temp;
-        return child;
+        root->right = deleteNodeInBst(root->right, target);
     }
-    // case 4(temp->right and temp->left both is not NULL)
     else
     {
+        // Node to delete found
+        // Case 1: No child
+        if (root->left == NULL && root->right == NULL)
+        {
+            delete root;
+            return NULL;
+        }
+        // Case 2: One child (right child)
+        else if (root->left == NULL)
+        {
+            node *temp = root->right;
+            delete root;
+            return temp;
+        }
+        // Case 2: One child (left child)
+        else if (root->right == NULL)
+        {
+            node *temp = root->left;
+            delete root;
+            return temp;
+        }
+        // Case 3: Two children
+        else
+        {
+            int inorderPredecessor = maxValue(root->left);
+            root->data = inorderPredecessor;
+            root->left = deleteNodeInBst(root->left, inorderPredecessor);
+        }
     }
+    return root;
+}
+
+int main()
+{
+    node *root = NULL;
+    takeInput(root);
+    int target;
+    cout << endl
+         << "Enter the element you want to delete:-";
+    cin >> target;
+    root = deleteNodeInBst(root, target);
+    cout << "Level order traversal after deletion:" << endl;
+    levelOrderTraversal(root);
+
+    return 0;
 }

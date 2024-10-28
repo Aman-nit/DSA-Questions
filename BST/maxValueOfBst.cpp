@@ -1,4 +1,5 @@
-// time complexity in average case = O(H)=O(logn)
+// in BST min value will be the last left node in Binary Search Tree and in the same way the the last node of right subtree will be the max value in BST.
+
 #include <iostream>
 using namespace std;
 
@@ -46,37 +47,27 @@ void takeInput(node *&root)
         cin >> data;
     }
 }
-bool findNodeInBst(node *root, int target)
+int maxValue(node *root)
 {
-    bool leftAns = false;
-    bool rightAns = false;
+    node *temp = root;
     if (root == NULL)
     {
-        return false;
+        return -1;
     }
-    if (root->data == target)
+    while (temp->right != NULL)
     {
-        return true;
+        temp = temp->right;
     }
-    if (root->data < target)
-    {
-        rightAns = findNodeInBst(root->right, target);
-    }
-    else
-    {
-        leftAns = findNodeInBst(root->left, target);
-    }
-    // using or because if there is any true from left subtree or right subtree then the over all true will be return
-    return right || leftAns;
+    cout << temp->data << endl;
+    return temp->data;
 }
 
 int main()
 {
-
     node *root = NULL;
     takeInput(root);
-    int target;
-    cout << "Enter the target value:-";
-    cin >> target;
-    cout << findNodeInBst(root, 25) << endl;
+    cout << "Maximum value of the BST is :-";
+    maxValue(root);
+
+    return 0;
 }

@@ -1,0 +1,1 @@
+// have to store binary tree in inorder form then using 2 pointer approatch we gonna find the 2 sum

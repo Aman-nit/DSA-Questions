@@ -3,6 +3,7 @@
 #include <vector>
 using namespace std;
 
+// brute force
 string longestCommonprefix(vector<string> &str)
 {
 
@@ -37,6 +38,8 @@ string longestCommonprefix(vector<string> &str)
     }
     return ans;
 }
+
+// Using tries
 
 int main()
 {

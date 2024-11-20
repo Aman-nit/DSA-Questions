@@ -17,10 +17,37 @@
 */
 
 #include <iostream>
+#include <vector>
 using namespace std;
+
+// TOP DOWN DP
+int topDownSolve(int n, vector<int> &dp)
+{
+
+    // Base case
+    if (n == 1 || n == 0)
+    {
+        return n;
+    }
+
+    // step 02. check if answer already exist
+    if (dp[n] != -1)
+    {
+        return dp[n];
+    }
+
+    // step 02. replace ans with dp [n]
+    dp[n] = topDownSolve(n - 1, dp) + topDownSolve(n - 2, dp);
+    return dp[n];
+}
 
 int main()
 {
+    int n;
+    cout << "Enter the value of n :-";
+    cin >> n;
+    vector<int> dp(n + 1, -1);
 
-    cout << "Hello ";
+    int ans = topDownSolve(n, dp);
+    cout << ans << " ";
 }

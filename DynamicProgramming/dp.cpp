@@ -20,7 +20,7 @@
 #include <vector>
 using namespace std;
 
-// TOP DOWN DP
+// TOP DOWN DP / Recursion + Memoisation f
 int topDownSolve(int n, vector<int> &dp)
 {
 
@@ -41,13 +41,65 @@ int topDownSolve(int n, vector<int> &dp)
     return dp[n];
 }
 
+// Bottom Up / Tabulation method
+int bottomUpsolve(int n, vector<int> &dp)
+{
+
+    dp[0] = 0;
+    if (n == 0)
+    {
+        return dp[0];
+    }
+
+    dp[1] = 1;
+
+    for (int i = 2; i <= n; i++)
+    {
+        dp[i] = dp[i - 1] + dp[i - 2];
+    }
+    return dp[n];
+}
+
+// Space Optimisation
+int spaceOptSolve(int n)
+{
+
+    int prev2 = 0;
+    int prev1 = 1;
+
+    if (n == 0)
+    {
+        return prev2;
+    }
+    if (n == 1)
+    {
+        return prev1;
+    }
+    int curr;
+
+    for (int i = 2; i <= n; i++)
+    {
+        curr = prev1 + prev2;
+
+        prev2 = prev1;
+        prev1 = curr;
+    }
+    return curr;
+}
+
 int main()
 {
     int n;
     cout << "Enter the value of n :-";
     cin >> n;
     vector<int> dp(n + 1, -1);
-
+    cout << "Printing solution of Top Down app...." << endl;
     int ans = topDownSolve(n, dp);
-    cout << ans << " ";
+    cout << ans << "\n";
+    cout << "Printing solution of Bottom up app...." << endl;
+    int ans2 = bottomUpsolve(n, dp);
+    cout << ans2 << "\n";
+    int ans3 = spaceOptSolve(n);
+    cout << "Printing solution of Space OPtimaised s app...." << endl;
+    cout << ans3 << "\n";
 }

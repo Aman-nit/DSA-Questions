@@ -74,6 +74,11 @@ int houseRobberTabu(vector<int> &nums, int n)
     return dp[n];
 }
 
+// Space optimisation
+int houseRobberSpacOpt()
+{
+}
+
 int main()
 {
     int n;

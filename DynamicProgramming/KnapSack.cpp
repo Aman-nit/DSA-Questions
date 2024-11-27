@@ -63,8 +63,20 @@ int solveUsingMemo(int weight[], int value[], int capacity, int index, vector<ve
 }
 
 // TABULATION
-int solveUsingTabu(int weight[], int value[], int capacity, int index)
+int solveUsingTabu(int weight[], int value[], int capacity, int n)
 {
+    vector<vector<int>> dp(n + 1, vector<int>(capacity + 1, -1));
+    for (int wt = weight[0]; wt <= capacity; wt++)
+    {
+        if (weight[0] <= capacity)
+        {
+            dp[0][wt] = value[0];
+        }
+        else
+        {
+            dp[0][wt] = 0;
+        }
+    }
 }
 
 int main()

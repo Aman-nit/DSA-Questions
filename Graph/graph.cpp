@@ -4,13 +4,14 @@
 #include <unordered_map>
 using namespace std;
 
+template <typename T> // for making graph to use char int and any verible type
 // creating Adjacency list
 class graph
 {
 public:
-    unordered_map<int, list<pair<int, int>>> adjList;
+    unordered_map<T, list<pair<T, T>>> adjList;
 
-    void addEdge(int u, int v, int weight, bool direction)
+    void addEdge(T u, T v, int weight, bool direction)
     {
 
         // direction = 0 -> undirected graph
@@ -74,7 +75,7 @@ int main()
     // creating graph using Adjacency List
     // undirected edge
     // g.addEdge(srecNode,destnode,weight,direction)
-    graph g;
+    graph<int> g;
     g.addEdge(0, 1, 0, 0);
     g.addEdge(1, 2, 0, 0);
     g.addEdge(0, 2, 0, 0);
@@ -83,7 +84,7 @@ int main()
 
     // Directed edge
     // g.addEdge(srecNode,destnode,weight,direction)
-    graph gr;
+    graph<int> gr;
     gr.addEdge(0, 1, 8, 1);
     gr.addEdge(1, 2, 5, 1);
     gr.addEdge(0, 2, 7, 1);
